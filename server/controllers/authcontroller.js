@@ -94,3 +94,22 @@ export const loginController = async (req, res) => {
     });
   }
 };
+
+//logout
+
+export const logoutController = async (req, res) => {
+  try {
+    res.clearCookie("token");
+
+    return res.status(200).send({
+      success: true,
+      message: "successfully logout",
+    });
+  } catch (error) {
+    console.log("error", error);
+    return res.status(404).send({
+      success: false,
+      message: "failed to logout",
+    });
+  }
+};
