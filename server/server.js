@@ -11,7 +11,7 @@ dotenv.config();
 connectDb();
 //middlewares
 app.use(morgan("dev")); // use morgan middleware to log requests in development mode...,, dev means development
-app.use(cors()); // use cors middleware
+app.use(cors({ origin: process.env.FRONTEND_URL, credentials: true })); // use cors middleware
 app.use(express.json()); // Parse JSON requests
 
 //routes
