@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Eye,
   Mail,
@@ -7,10 +7,42 @@ import {
   Chrome,
   Sparkles,
   Shield,
+  EyeOff,
 } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { axiosInstance } from "../lib/axios";
 
 const LoginPage = () => {
+  const navigate = useNavigate();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await axiosInstance.post("/v1/auth/login", {
+        email,
+        password,
+      });
+
+      console.log("Login successful:", res.data);
+      // Reset form fields
+      setEmail("");
+      setPassword("");
+      if (res.data.success) {
+        // Store token if needed
+        if (res.data.token) {
+          localStorage.setItem("token", res.data.token);
+        }
+        navigate("/dashboard"); // Redirect to dashboard after successful login
+      }
+    } catch (error) {
+      console.error("Login failed:", error.response?.data || error.message);
+    }
+  };
   const SocialButton = ({
     icon: IconComponent,
     label,
@@ -93,7 +125,7 @@ const LoginPage = () => {
           </div>
 
           {/* Login Form */}
-          <form className="space-y-6 relative z-10">
+          <form className="space-y-6 relative z-10" onSubmit={handleLogin}>
             {/* Email Field */}
             <div className="group">
               <label
@@ -111,6 +143,8 @@ const LoginPage = () => {
                   type="email"
                   className="block w-full pl-12 pr-4 py-4 border-2 border-gray-200 dark:border-gray-600 bg-white/50 dark:bg-gray-700/50 rounded-2xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all duration-300 dark:text-white dark:placeholder-gray-400 backdrop-blur-sm hover:border-purple-300 dark:hover:border-purple-400"
                   placeholder="Enter your email address"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
                 <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-purple-500/10 to-pink-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
               </div>
@@ -130,15 +164,22 @@ const LoginPage = () => {
                 </div>
                 <input
                   id="password"
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   className="block w-full pl-12 pr-12 py-4 border-2 border-gray-200 dark:border-gray-600 bg-white/50 dark:bg-gray-700/50 rounded-2xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all duration-300 dark:text-white dark:placeholder-gray-400 backdrop-blur-sm hover:border-purple-300 dark:hover:border-purple-400"
                   placeholder="Enter your password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
                 <button
                   type="button"
                   className="absolute inset-y-0 right-0 pr-4 flex items-center hover:scale-110 transition-transform duration-200 z-10"
+                  onClick={() => setShowPassword(!showPassword)}
                 >
-                  <Eye className="h-5 w-5 text-gray-400 hover:text-purple-500 transition-colors" />
+                  {showPassword ? (
+                    <EyeOff className="h-5 w-5 text-gray-400 hover:text-purple-500 transition-colors" />
+                  ) : (
+                    <Eye className="h-5 w-5 text-gray-400 hover:text-purple-500 transition-colors" />
+                  )}
                 </button>
                 <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-purple-500/10 to-pink-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
               </div>
@@ -185,10 +226,11 @@ const LoginPage = () => {
           <div className="mt-8 text-center relative z-10">
             <p className="text-sm text-gray-600 dark:text-gray-400">
               Don't have an account?{" "}
-              <Link to="/register">
-                <button className="font-semibold text-purple-600 hover:text-purple-500 dark:text-purple-400 dark:hover:text-purple-300 transition-colors duration-200 hover:underline">
-                  Register here
-                </button>
+              <Link
+                to="/register"
+                className="font-semibold text-purple-600 hover:text-purple-500 dark:text-purple-400 dark:hover:text-purple-300 transition-colors duration-200 hover:underline"
+              >
+                Register here
               </Link>
             </p>
           </div>
