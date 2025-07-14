@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Eye,
+  EyeOff,
   Mail,
   Lock,
   ArrowRight,
@@ -9,9 +10,41 @@ import {
   Sparkles,
   Shield,
 } from "lucide-react";
-import { Link } from "react-router-dom";
+import { axiosInstance } from "../lib/axios";
+import { Link, useNavigate } from "react-router-dom";
 
 const RegisterPage = () => {
+  const navigate = useNavigate();
+
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await axiosInstance.post("/v1/auth/register", {
+        username: name,
+        email,
+        password,
+      });
+
+      console.log("Registration successful:", res.data);
+      // Reset form fields
+      setName("");
+      setEmail("");
+      setPassword("");
+      if (res.data.success) navigate("/login"); // Redirect to login page after successful registration
+    } catch (error) {
+      console.error(
+        "Registration failed:",
+        error.response?.data || error.message
+      );
+    }
+  };
+
   const SocialButton = ({
     icon: IconComponent,
     label,
@@ -94,7 +127,7 @@ const RegisterPage = () => {
           </div>
 
           {/* Register Form */}
-          <form className="space-y-6 relative z-10">
+          <form className="space-y-6 relative z-10" onSubmit={handleRegister}>
             {/* Name Field */}
             <div className="group">
               <label
@@ -111,6 +144,8 @@ const RegisterPage = () => {
                   id="name"
                   name="name"
                   type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
                   className="block w-full pl-12 pr-4 py-4 border-2 border-gray-200 dark:border-gray-600 bg-white/50 dark:bg-gray-700/50 rounded-2xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all duration-300 dark:text-white dark:placeholder-gray-400 backdrop-blur-sm hover:border-purple-300 dark:hover:border-purple-400"
                   placeholder="Enter your full name"
                 />
@@ -134,6 +169,8 @@ const RegisterPage = () => {
                   id="email"
                   name="email"
                   type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   className="block w-full pl-12 pr-4 py-4 border-2 border-gray-200 dark:border-gray-600 bg-white/50 dark:bg-gray-700/50 rounded-2xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all duration-300 dark:text-white dark:placeholder-gray-400 backdrop-blur-sm hover:border-purple-300 dark:hover:border-purple-400"
                   placeholder="Enter your email address"
                 />
@@ -156,15 +193,22 @@ const RegisterPage = () => {
                 <input
                   id="password"
                   name="password"
-                  type="password"
+                  type={showPassword ? "text" : "password"}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   className="block w-full pl-12 pr-12 py-4 border-2 border-gray-200 dark:border-gray-600 bg-white/50 dark:bg-gray-700/50 rounded-2xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all duration-300 dark:text-white dark:placeholder-gray-400 backdrop-blur-sm hover:border-purple-300 dark:hover:border-purple-400"
                   placeholder="Create a strong password"
                 />
                 <button
                   type="button"
+                  onClick={() => setShowPassword(!showPassword)}
                   className="absolute inset-y-0 right-0 pr-4 flex items-center hover:scale-110 transition-transform duration-200 z-10"
                 >
-                  <Eye className="h-5 w-5 text-gray-400 hover:text-purple-500 transition-colors" />
+                  {showPassword ? (
+                    <EyeOff className="h-5 w-5 text-gray-400 hover:text-purple-500 transition-colors" />
+                  ) : (
+                    <Eye className="h-5 w-5 text-gray-400 hover:text-purple-500 transition-colors" />
+                  )}
                 </button>
                 <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-purple-500/10 to-pink-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
               </div>
