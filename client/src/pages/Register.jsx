@@ -5,11 +5,12 @@ import {
   Lock,
   ArrowRight,
   Chrome,
+  User,
   Sparkles,
   Shield,
 } from "lucide-react";
 
-const LoginPage = () => {
+const RegisterPage = () => {
   const SocialButton = ({
     icon: IconComponent,
     label,
@@ -61,10 +62,10 @@ const LoginPage = () => {
               <Sparkles className="w-4 h-4 text-yellow-300 absolute -top-1 -right-1 animate-pulse" />
             </div>
             <h1 className="text-4xl font-bold bg-gradient-to-r from-gray-800 via-purple-600 to-indigo-600 dark:from-white dark:via-purple-300 dark:to-indigo-300 bg-clip-text text-transparent mb-3">
-              Welcome Back
+              Join Us Today
             </h1>
             <p className="text-gray-600 dark:text-gray-300 text-lg">
-              Sign in to your account to continue
+              Create your account and start your journey
             </p>
           </div>
 
@@ -91,8 +92,31 @@ const LoginPage = () => {
             </div>
           </div>
 
-          {/* Login Form */}
+          {/* Register Form */}
           <form className="space-y-6 relative z-10">
+            {/* Name Field */}
+            <div className="group">
+              <label
+                htmlFor="name"
+                className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors duration-200"
+              >
+                Full Name
+              </label>
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none z-10">
+                  <User className="h-5 w-5 text-gray-400 group-hover:text-purple-500 transition-colors duration-200" />
+                </div>
+                <input
+                  id="name"
+                  name="name"
+                  type="text"
+                  className="block w-full pl-12 pr-4 py-4 border-2 border-gray-200 dark:border-gray-600 bg-white/50 dark:bg-gray-700/50 rounded-2xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all duration-300 dark:text-white dark:placeholder-gray-400 backdrop-blur-sm hover:border-purple-300 dark:hover:border-purple-400"
+                  placeholder="Enter your full name"
+                />
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-purple-500/10 to-pink-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+              </div>
+            </div>
+
             {/* Email Field */}
             <div className="group">
               <label
@@ -107,6 +131,7 @@ const LoginPage = () => {
                 </div>
                 <input
                   id="email"
+                  name="email"
                   type="email"
                   className="block w-full pl-12 pr-4 py-4 border-2 border-gray-200 dark:border-gray-600 bg-white/50 dark:bg-gray-700/50 rounded-2xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all duration-300 dark:text-white dark:placeholder-gray-400 backdrop-blur-sm hover:border-purple-300 dark:hover:border-purple-400"
                   placeholder="Enter your email address"
@@ -129,9 +154,10 @@ const LoginPage = () => {
                 </div>
                 <input
                   id="password"
+                  name="password"
                   type="password"
                   className="block w-full pl-12 pr-12 py-4 border-2 border-gray-200 dark:border-gray-600 bg-white/50 dark:bg-gray-700/50 rounded-2xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all duration-300 dark:text-white dark:placeholder-gray-400 backdrop-blur-sm hover:border-purple-300 dark:hover:border-purple-400"
-                  placeholder="Enter your password"
+                  placeholder="Create a strong password"
                 />
                 <button
                   type="button"
@@ -143,29 +169,6 @@ const LoginPage = () => {
               </div>
             </div>
 
-            {/* Remember Me & Forgot Password */}
-            <div className="flex items-center justify-between">
-              <div className="flex items-center">
-                <input
-                  id="remember-me"
-                  type="checkbox"
-                  className="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300 dark:border-gray-600 rounded cursor-pointer"
-                />
-                <label
-                  htmlFor="remember-me"
-                  className="ml-2 block text-sm text-gray-700 dark:text-gray-300 cursor-pointer"
-                >
-                  Remember me
-                </label>
-              </div>
-              <button
-                type="button"
-                className="text-sm font-medium text-purple-600 hover:text-purple-500 dark:text-purple-400 dark:hover:text-purple-300 transition-colors"
-              >
-                Forgot password?
-              </button>
-            </div>
-
             {/* Submit Button */}
             <button
               type="submit"
@@ -174,18 +177,18 @@ const LoginPage = () => {
               <div className="absolute inset-0 bg-gradient-to-r from-white/20 via-transparent to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
               <div className="flex items-center relative z-10">
                 <Sparkles className="mr-2 h-5 w-5 group-hover:rotate-12 transition-transform duration-300" />
-                Sign in
+                Create Account
                 <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" />
               </div>
             </button>
           </form>
 
-          {/* Sign Up Link */}
+          {/* Sign In Link */}
           <div className="mt-8 text-center relative z-10">
             <p className="text-sm text-gray-600 dark:text-gray-400">
-              Don't have an account?{" "}
+              Already have an account?{" "}
               <button className="font-semibold text-purple-600 hover:text-purple-500 dark:text-purple-400 dark:hover:text-purple-300 transition-colors duration-200 hover:underline">
-                Register here
+                Sign in here
               </button>
             </p>
           </div>
@@ -194,7 +197,7 @@ const LoginPage = () => {
         {/* Footer */}
         <div className="mt-8 text-center">
           <p className="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">
-            By signing in, you agree to our{" "}
+            By signing up, you agree to our{" "}
             <a
               href="#"
               className="text-purple-600 hover:text-purple-500 dark:text-purple-400 dark:hover:text-purple-300 transition-colors duration-200 hover:underline font-medium"
@@ -215,4 +218,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default RegisterPage;
