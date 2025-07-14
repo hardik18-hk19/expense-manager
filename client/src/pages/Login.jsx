@@ -8,6 +8,7 @@ import {
   Sparkles,
   Shield,
 } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const LoginPage = () => {
   const SocialButton = ({
@@ -184,9 +185,11 @@ const LoginPage = () => {
           <div className="mt-8 text-center relative z-10">
             <p className="text-sm text-gray-600 dark:text-gray-400">
               Don't have an account?{" "}
-              <button className="font-semibold text-purple-600 hover:text-purple-500 dark:text-purple-400 dark:hover:text-purple-300 transition-colors duration-200 hover:underline">
-                Register here
-              </button>
+              <Link to="/register">
+                <button className="font-semibold text-purple-600 hover:text-purple-500 dark:text-purple-400 dark:hover:text-purple-300 transition-colors duration-200 hover:underline">
+                  Register here
+                </button>
+              </Link>
             </p>
           </div>
         </div>
