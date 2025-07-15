@@ -50,29 +50,29 @@ const Navbar = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:block">
-            <div className="ml-10 flex items-baseline space-x-2">
+            <div className="ml-10 flex items-baseline space-x-1">
               {navItems.map((item, index) => (
                 <a
                   key={item.label}
                   href={item.href}
-                  className="group relative flex items-center gap-2 text-gray-700 hover:text-purple-600 px-4 py-3 rounded-2xl text-sm font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg backdrop-blur-sm"
+                  className="group relative flex items-center gap-2 text-gray-700 hover:text-purple-600 px-4 py-3 rounded-2xl text-sm font-semibold transition-all duration-200 hover:shadow-lg backdrop-blur-sm overflow-hidden"
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
-                  {/* Hover background effect */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-purple-100/50 via-pink-100/30 to-indigo-100/50 rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-300 scale-90 group-hover:scale-100"></div>
+                  {/* Hover background effect - contained */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-purple-100/50 via-pink-100/30 to-indigo-100/50 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none"></div>
 
                   {/* Icon with animation */}
-                  <div className="relative z-10 p-1.5 rounded-lg bg-gradient-to-r from-purple-500/10 to-pink-500/10 group-hover:from-purple-500/20 group-hover:to-pink-500/20 transition-all duration-300">
-                    <item.icon className="h-4 w-4 group-hover:scale-110 transition-transform duration-300" />
+                  <div className="relative z-10 p-1.5 rounded-lg bg-gradient-to-r from-purple-500/10 to-pink-500/10 group-hover:from-purple-500/20 group-hover:to-pink-500/20 transition-all duration-200">
+                    <item.icon className="h-4 w-4 transition-transform duration-200" />
                   </div>
 
                   {/* Label */}
-                  <span className="relative z-10 group-hover:font-bold transition-all duration-300">
+                  <span className="relative z-10 group-hover:font-bold transition-all duration-200">
                     {item.label}
                   </span>
 
-                  {/* Shine effect */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 rounded-2xl"></div>
+                  {/* Shine effect - contained within bounds */}
+                  <div className="absolute inset-1 bg-gradient-to-r from-transparent via-white/15 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-500 rounded-xl pointer-events-none"></div>
                 </a>
               ))}
             </div>
@@ -81,13 +81,13 @@ const Navbar = () => {
           {/* Desktop Login Button */}
           <div className="hidden md:block">
             <Button
-              className="relative group bg-gradient-to-r from-purple-600 via-pink-600 to-indigo-600 hover:from-purple-700 hover:via-pink-700 hover:to-indigo-700 text-white px-6 py-3 rounded-2xl text-sm font-semibold transition-all duration-300 hover:scale-105 hover:shadow-2xl overflow-hidden"
+              className="relative group bg-gradient-to-r from-purple-600 via-pink-600 to-indigo-600 hover:from-purple-700 hover:via-pink-700 hover:to-indigo-700 text-white px-6 py-3 rounded-2xl text-sm font-semibold transition-all duration-200 hover:shadow-2xl overflow-hidden"
               onClick={() => {
                 navigate("/login");
               }}
             >
               {/* Button shine effect */}
-              <div className="absolute inset-0 bg-gradient-to-r from-white/20 via-transparent to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-white/20 via-transparent to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-500"></div>
 
               {/* Button content */}
               <div className="relative z-10 flex items-center gap-2">
@@ -96,7 +96,7 @@ const Navbar = () => {
               </div>
 
               {/* Glow effect */}
-              <div className="absolute inset-0 bg-gradient-to-r from-purple-600 via-pink-600 to-indigo-600 blur-lg opacity-0 group-hover:opacity-50 transition-opacity duration-300 -z-10"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-purple-600 via-pink-600 to-indigo-600 blur-lg opacity-0 group-hover:opacity-30 transition-opacity duration-300 -z-10"></div>
             </Button>
           </div>
 
@@ -104,17 +104,17 @@ const Navbar = () => {
           <div className="md:hidden">
             <button
               onClick={toggleMenu}
-              className="group relative inline-flex items-center justify-center p-3 rounded-2xl text-gray-700 hover:text-purple-600 hover:bg-purple-50 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 transition-all duration-300 hover:scale-110"
+              className="group relative inline-flex items-center justify-center p-3 rounded-2xl text-gray-700 hover:text-purple-600 hover:bg-purple-50 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 transition-all duration-200"
             >
               {/* Button background effect */}
-              <div className="absolute inset-0 bg-gradient-to-r from-purple-100/50 to-pink-100/50 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-purple-100/50 to-pink-100/50 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-200"></div>
 
               {/* Icon with animation */}
               <div className="relative z-10">
                 {isMenuOpen ? (
                   <X className="h-6 w-6 group-hover:rotate-90 transition-transform duration-300" />
                 ) : (
-                  <Menu className="h-6 w-6 group-hover:scale-110 transition-transform duration-300" />
+                  <Menu className="h-6 w-6 transition-transform duration-200" />
                 )}
               </div>
             </button>
@@ -133,38 +133,38 @@ const Navbar = () => {
               <a
                 key={item.label}
                 href={item.href}
-                className="group relative flex items-center gap-3 text-gray-700 hover:text-purple-600 px-4 py-4 rounded-2xl text-base font-semibold transition-all duration-300 hover:scale-105 backdrop-blur-sm"
+                className="group relative flex items-center gap-3 text-gray-700 hover:text-purple-600 px-4 py-4 rounded-2xl text-base font-semibold transition-all duration-200 backdrop-blur-sm overflow-hidden"
                 onClick={() => setIsMenuOpen(false)}
                 style={{ animationDelay: `${index * 50}ms` }}
               >
-                {/* Mobile item background effect */}
-                <div className="absolute inset-0 bg-gradient-to-r from-purple-100/50 via-pink-100/30 to-indigo-100/50 rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-300 scale-95 group-hover:scale-100"></div>
+                {/* Mobile item background effect - contained */}
+                <div className="absolute inset-0 bg-gradient-to-r from-purple-100/50 via-pink-100/30 to-indigo-100/50 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none"></div>
 
                 {/* Icon with enhanced styling */}
-                <div className="relative z-10 p-2 rounded-xl bg-gradient-to-r from-purple-500/10 to-pink-500/10 group-hover:from-purple-500/20 group-hover:to-pink-500/20 transition-all duration-300">
-                  <item.icon className="h-5 w-5 group-hover:scale-110 transition-transform duration-300" />
+                <div className="relative z-10 p-2 rounded-xl bg-gradient-to-r from-purple-500/10 to-pink-500/10 group-hover:from-purple-500/20 group-hover:to-pink-500/20 transition-all duration-200">
+                  <item.icon className="h-5 w-5 transition-transform duration-200" />
                 </div>
 
                 {/* Label */}
-                <span className="relative z-10 group-hover:font-bold transition-all duration-300">
+                <span className="relative z-10 group-hover:font-bold transition-all duration-200">
                   {item.label}
                 </span>
 
-                {/* Shine effect */}
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 rounded-2xl"></div>
+                {/* Shine effect - contained within bounds */}
+                <div className="absolute inset-1 bg-gradient-to-r from-transparent via-white/15 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-500 rounded-xl pointer-events-none"></div>
               </a>
             ))}
 
             <div className="pt-6 pb-2 border-t border-purple-100/50 relative z-10">
               <Button
-                className="relative group w-full bg-gradient-to-r from-purple-600 via-pink-600 to-indigo-600 hover:from-purple-700 hover:via-pink-700 hover:to-indigo-700 text-white px-6 py-4 rounded-2xl text-base font-semibold transition-all duration-300 hover:scale-105 hover:shadow-2xl overflow-hidden"
+                className="relative group w-full bg-gradient-to-r from-purple-600 via-pink-600 to-indigo-600 hover:from-purple-700 hover:via-pink-700 hover:to-indigo-700 text-white px-6 py-4 rounded-2xl text-base font-semibold transition-all duration-200 hover:shadow-2xl overflow-hidden"
                 onClick={() => {
                   navigate("/login");
                   setIsMenuOpen(false);
                 }}
               >
                 {/* Mobile button shine effect */}
-                <div className="absolute inset-0 bg-gradient-to-r from-white/20 via-transparent to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-white/20 via-transparent to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-500"></div>
 
                 {/* Mobile button content */}
                 <div className="relative z-10 flex items-center justify-center gap-2">
@@ -173,7 +173,7 @@ const Navbar = () => {
                 </div>
 
                 {/* Mobile button glow */}
-                <div className="absolute inset-0 bg-gradient-to-r from-purple-600 via-pink-600 to-indigo-600 blur-lg opacity-0 group-hover:opacity-50 transition-opacity duration-300 -z-10"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-purple-600 via-pink-600 to-indigo-600 blur-lg opacity-0 group-hover:opacity-30 transition-opacity duration-300 -z-10"></div>
               </Button>
             </div>
           </div>
