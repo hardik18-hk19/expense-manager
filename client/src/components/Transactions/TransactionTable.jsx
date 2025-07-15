@@ -15,7 +15,11 @@ import {
   NotebookPen,
 } from "lucide-react";
 
-const TransactionTable = () => {
+const TransactionTable = ({ searchTerm, filters }) => {
+  // TODO: Implement filtering logic based on searchTerm and filters
+  // For now, we'll just pass the props through
+  console.log("Search term:", searchTerm, "Filters:", filters);
+
   return (
     <div className="p-5">
       <Table>
