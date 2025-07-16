@@ -5,6 +5,7 @@ import Navbar from "./components/Navbar";
 import RegisterPage from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import Transactions from "./pages/Transactions";
+import Tools from "./pages/Tools";
 
 function App() {
   return (
@@ -16,6 +17,8 @@ function App() {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/transactions" element={<Transactions />} />
+        <Route path="/tools" element={<Tools />} />
+        <Route path="*" element={<HomePage />} />
       </Routes>
     </div>
   );
